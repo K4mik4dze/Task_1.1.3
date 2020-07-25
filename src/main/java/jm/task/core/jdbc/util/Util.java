@@ -1,23 +1,16 @@
 package jm.task.core.jdbc.util;
-
 import java.sql.*;
 
 public class Util {
-    protected static final String URL = "jdbc:mysql://localhost:3306/task113?useSSL=false";
+    private static final String DBTYPE = "jdbc:mysql://";
+    private static final String HOSTNAME = "localhost:";
+    private static final String PORT = "3306/";
+    private static final String NAME = "task113?";
+    private static final String SSL = "useSSL=false";
     private static final String LOGIN = "root";
     private static final String PASSWORD = "Kingobiloba@61bb";
-
-    public static String getUrl() {
-        return URL;
-    }
-
-    public static String getLogin() {
-        return LOGIN;
-    }
-
-    public static String getPassword() {
-        return PASSWORD;
-    }
+    private static  final StringBuilder URL = new StringBuilder(DBTYPE).append(HOSTNAME).
+            append(PORT).append(NAME).append(SSL);
 
     public static void registerDriver() {
         try {
@@ -30,7 +23,7 @@ public class Util {
     public static Connection startConnection() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection(Util.getUrl(), Util.getLogin(), Util.getPassword());
+            connection = DriverManager.getConnection(URL.toString(), LOGIN, PASSWORD);
         } catch (SQLException throwables) {
             System.out.println("Ошибка установления соединения с базой данных!");
             throwables.printStackTrace();
